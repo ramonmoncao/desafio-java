@@ -1,5 +1,6 @@
 package br.com.core.operations.api.controllers;
 
+import br.com.core.operations.core.entity.AllQuotations;
 import br.com.core.operations.core.entity.Quotation;
 import br.com.core.operations.core.interfaces.usecase.FindBitCoinQuotationUseCase;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +23,12 @@ public class BitCoinOperationsController {
         log.info("Nova requisição de Cotação: [moeda: {}]", currency);
 
         return findBitCoinQuotationUseCase.getQuotation(currency);
+    }
+
+    @GetMapping("/quotation")
+    public AllQuotations getQuotatios(){
+        log.info("Nova requisição de EUR BRL e USD");
+        return findBitCoinQuotationUseCase.getAll();
+
     }
 }
