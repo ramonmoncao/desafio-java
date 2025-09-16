@@ -13,10 +13,4 @@ public interface BitCoinGatewayClient {
         @GetMapping(value = "/v2/prices/BTC-{currency}/spot", produces = MediaType.APPLICATION_JSON_VALUE)
         CoinBaseResponse getQuotation(@PathVariable("currency") String currency);
 
-        @GetMapping(value = "/v2/prices/BTC-USD/spot", produces = MediaType.APPLICATION_JSON_VALUE)
-        CoinBaseResponse getUSD();
-        @GetMapping(value = "/v2/prices/BTC-EUR/spot", produces = MediaType.APPLICATION_JSON_VALUE)
-        CoinBaseResponse getEUR();
-        @GetMapping(value = "/v2/prices/BTC-BRL/spot", produces = MediaType.APPLICATION_JSON_VALUE)
-        CoinBaseResponse getBRL();
 }

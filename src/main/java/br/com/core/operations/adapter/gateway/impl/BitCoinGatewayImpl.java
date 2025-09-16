@@ -43,11 +43,11 @@ public class BitCoinGatewayImpl implements BitCoinGateway {
 
     public List<CoinBaseResponse> getAll(){
         try {
-            log.info("[BitCoinGatewayImpl] Buscando a cotação do Bitcoin para moeda: URL, BRL e USD");
+            log.info("[BitCoinGatewayImpl] Buscando a cotação do Bitcoin para moeda: USD, BRL e EUR");
             List<CoinBaseResponse> list = new ArrayList<CoinBaseResponse>();
-            list.add(client.getUSD());
-            list.add(client.getBRL());
-            list.add(client.getEUR());
+            list.add(client.getQuotation("USD"));
+            list.add(client.getQuotation("BRL"));
+            list.add(client.getQuotation("EUR"));
             return list;
         } catch (final FeignException feignException) {
             log.error(ERROR_FEIGN_MESSAGE, feignException.status(), feignException.request().url(),
