@@ -1,38 +1,68 @@
-package br.com.core.operations.api.controllers
+package br.com.core.operations.api.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.MvcResult
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import spock.lang.Specification
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.test.web.servlet.MockMvc;
 
-@AutoConfigureWireMock
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 @SpringBootTest
 @AutoConfigureMockMvc
-class BitCoinComponentSpec extends Specification {
+@AutoConfigureWireMock
+class BitCoinComponentTest {
 
     @Autowired
-    MockMvc mockMvc
+    MockMvc mockMvc;
 
-    def "Deve retornar sucesso ao fazer uma requisição a API informando a moeda BRL"() {
-        given: "Desejo saber o valor do Bitcoin em Reais"
-        var currency = "BRL"
+    @Test
+    void deveRetornarMoedaBRL() throws Exception {
 
-        when: "Executo a chamada HTTP GET para a API de Cotações"
-        MvcResult response = mockMvc
-                .perform(MockMvcRequestBuilders
-                        .get("/bitcoin-operations/quotation/{currency}", currency))
-                .andReturn()
+        String currency = "BRL";
 
-        then: "Devo receber status code igual a 200 OK"
-        response.getResponse().getStatus() == HttpStatus.OK.value()
+        mockMvc.perform(get("/bitcoin-operations/quotation/{currency}", currency))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.currency").value("BRL"))
+                .andExpect(jsonPath("$.amount").isNumber());
+
+    }
+    @Test
+    void deveRetornarMoedaEUR() throws Exception {
+
+        String currency = "EUR";
+
+        mockMvc.perform(get("/bitcoin-operations/quotation/{currency}", currency))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.currency").value("EUR"))
+                .andExpect(jsonPath("$.amount").isNumber());
+
+    }
+    @Test
+    void deveRetornarMoedaUSD() throws Exception {
+
+        String currency = "USD";
+
+        mockMvc.perform(get("/bitcoin-operations/quotation/{currency}", currency))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.currency").value("USD"))
+                .andExpect(jsonPath("$.amount").isNumber());
+
     }
 
+    @Test
+    void deveRetornarUSDeBRLeEUR() throws Exception {
+
+        mockMvc.perform(get("/bitcoin-operations/quotation"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.moedaBase").value("BTC"))
+                .andExpect(jsonPath("$.data").exists())
+                .andExpect(jsonPath("$.cotacoes").isArray())
+                .andExpect(jsonPath("$.cotacoes.length()").value(3))
+                .andExpect(jsonPath("$.cotacoes[?(@.currency=='BRL')]").exists())
+                .andExpect(jsonPath("$.cotacoes[?(@.currency=='EUR')]").exists())
+                .andExpect(jsonPath("$.cotacoes[?(@.currency=='USD')]").exists());
+    }
 }
-
-
