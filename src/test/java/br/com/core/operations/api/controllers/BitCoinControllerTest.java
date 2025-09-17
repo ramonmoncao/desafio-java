@@ -8,49 +8,16 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureWireMock
-class BitCoinComponentTest {
+class BitCoinControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
-    @Test
-    void deveRetornarMoedaBRL() throws Exception {
-
-        String currency = "BRL";
-
-        mockMvc.perform(get("/bitcoin-operations/quotation/{currency}", currency))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.currency").value("BRL"))
-                .andExpect(jsonPath("$.amount").isNumber());
-
-    }
-    @Test
-    void deveRetornarMoedaEUR() throws Exception {
-
-        String currency = "EUR";
-
-        mockMvc.perform(get("/bitcoin-operations/quotation/{currency}", currency))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.currency").value("EUR"))
-                .andExpect(jsonPath("$.amount").isNumber());
-
-    }
-    @Test
-    void deveRetornarMoedaUSD() throws Exception {
-
-        String currency = "USD";
-
-        mockMvc.perform(get("/bitcoin-operations/quotation/{currency}", currency))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.currency").value("USD"))
-                .andExpect(jsonPath("$.amount").isNumber());
-
-    }
 
     @Test
     void deveRetornarUSDeBRLeEUR() throws Exception {
