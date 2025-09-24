@@ -30,7 +30,7 @@ ex:
 
 
 API de integração que retorna a cotação do Bitcoin na moeda desejada:
-https://api.coinbase.com/v2/prices/spot?currency=EUR
+https://api.coinbase.com/v2/prices/BTC-USD/spot
 
 `
 {"data":{"base":"BTC","currency":"EUR","amount":"21081.61"}}

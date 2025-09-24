@@ -25,7 +25,7 @@ public class FindBitCoinQuotationUseCaseImpl implements FindBitCoinQuotationUseC
     @Override
     public AllQuotations getAll() {
         AllQuotations quotations = new AllQuotations();
-        quotations.setMoedaBase("BTC");
+        quotations.setMoedaBase("bitcoin");
         bitCoinGateway.getAll().forEach(q -> {
             quotations.getCotacoes().add(QuotationMapper.INSTANCE.toEntity(q));
         });
