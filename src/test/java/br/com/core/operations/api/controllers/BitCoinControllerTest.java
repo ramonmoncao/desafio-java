@@ -22,7 +22,7 @@ class BitCoinControllerTest {
     @Test
     void deveRetornarUSDeBRLeEUR() throws Exception {
 
-        mockMvc.perform(get("/bitcoin-operations/quotation"))
+        mockMvc.perform(get("/bitcoin-operations/quotations"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.moedaBase").value("bitcoin"))
                 .andExpect(jsonPath("$.data").exists())
