@@ -4,10 +4,12 @@ import br.com.core.operations.api.templates.AllQuotationsResponseTemplate;
 import br.com.core.operations.api.templates.QuotationResponseTemplate;
 import br.com.core.operations.core.interfaces.usecase.FindBitCoinQuotationUseCase;
 import com.atlassian.oai.validator.mockmvc.OpenApiValidationMatchers;
+import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,9 +21,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureWireMock(port = 8081)
 class BitCoinControllerContractTest {
 
     private final String openApiSwaggerFilePath = "openapi.json";
+
+    private static final String URL_USD = "/bitcoin-operations/quotation/USD";
+    private static final String URL_ALL = "/bitcoin-operations/quotations";
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,11 +40,10 @@ class BitCoinControllerContractTest {
         when(findBitCoinQuotationUseCase.getQuotation(any()))
                 .thenReturn(QuotationResponseTemplate.getQuotation());
 
-        mockMvc.perform(get("/bitcoin-operations/quotation/USD"))
+        mockMvc.perform(get(URL_USD))
                 .andExpect(status().isOk())
                 .andExpect(OpenApiValidationMatchers.openApi()
-                        .isValid(openApiSwaggerFilePath))
-                .andDo(print());
+                        .isValid(openApiSwaggerFilePath));
     }
 
     @Test
@@ -48,10 +53,13 @@ class BitCoinControllerContractTest {
                 .thenReturn(AllQuotationsResponseTemplate.getAllQuotations());
 
 
-        mockMvc.perform(get("/bitcoin-operations/quotations"))
+        mockMvc.perform(get(URL_ALL))
                 .andExpect(status().isOk())
                 .andExpect(OpenApiValidationMatchers.openApi()
                         .isValid(openApiSwaggerFilePath))
                 .andDo(print());
     }
+
+
+
 }
