@@ -17,6 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 public class AllQuotations {
     private String moedaBase;
-    private String data = Instant.now().truncatedTo(ChronoUnit.SECONDS).toString();
-    private List<Quotation> cotacoes = new ArrayList<>();
+    private String data;
+    private List<Quotation> cotacoes;
 }
