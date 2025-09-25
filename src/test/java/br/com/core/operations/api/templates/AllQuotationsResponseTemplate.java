@@ -23,6 +23,14 @@ public class AllQuotationsResponseTemplate {
                 Quotation.builder()
                         .moeda("USD")
                         .valor(BigDecimal.valueOf(111409.48))
+                        .build(),
+                Quotation.builder()
+                        .moeda("BRL")
+                        .valor(BigDecimal.valueOf(590823.86))
+                        .build(),
+                Quotation.builder()
+                        .moeda("EUR")
+                        .valor(BigDecimal.valueOf(94804.25))
                         .build()
         );
     }
