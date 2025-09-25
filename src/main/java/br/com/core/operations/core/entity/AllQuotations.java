@@ -2,7 +2,10 @@ package br.com.core.operations.core.entity;
 
 import lombok.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 public class AllQuotations {
     private String moedaBase;
-    private LocalDateTime data = LocalDateTime.now();
-    private List<Quotation> cotacoes = new ArrayList<>();
+    private String data;
+    private List<Quotation> cotacoes;
 }
