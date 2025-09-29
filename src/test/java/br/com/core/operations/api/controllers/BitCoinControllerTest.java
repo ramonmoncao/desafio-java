@@ -22,14 +22,14 @@ class BitCoinControllerTest {
     @Test
     void deveRetornarUSDeBRLeEUR() throws Exception {
 
-        mockMvc.perform(get("/bitcoin-operations/quotation"))
+        mockMvc.perform(get("/bitcoin-operations/quotations"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.moedaBase").value("BTC"))
+                .andExpect(jsonPath("$.moedaBase").value("bitcoin"))
                 .andExpect(jsonPath("$.data").exists())
                 .andExpect(jsonPath("$.cotacoes").isArray())
                 .andExpect(jsonPath("$.cotacoes.length()").value(3))
-                .andExpect(jsonPath("$.cotacoes[?(@.currency=='BRL')]").exists())
-                .andExpect(jsonPath("$.cotacoes[?(@.currency=='EUR')]").exists())
-                .andExpect(jsonPath("$.cotacoes[?(@.currency=='USD')]").exists());
+                .andExpect(jsonPath("$.cotacoes[?(@.moeda=='BRL')]").exists())
+                .andExpect(jsonPath("$.cotacoes[?(@.moeda=='EUR')]").exists())
+                .andExpect(jsonPath("$.cotacoes[?(@.moeda=='USD')]").exists());
     }
 }

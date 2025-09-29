@@ -1,0 +1,97 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/bitcoin-operations/quotations": {
+      "get": {
+        "tags": [
+          "bit-coin-operations-controller"
+        ],
+        "operationId": "getQuotatios",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllQuotations"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bitcoin-operations/quotation/{currency}": {
+      "get": {
+        "tags": [
+          "bit-coin-operations-controller"
+        ],
+        "operationId": "findQuotation",
+        "parameters": [
+          {
+            "name": "currency",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quotation"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AllQuotations": {
+        "type": "object",
+        "properties": {
+          "moedaBase": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string"
+          },
+          "cotacoes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Quotation"
+            }
+          }
+        }
+      },
+      "Quotation": {
+        "type": "object",
+        "properties": {
+          "moeda": {
+            "type": "string"
+          },
+          "valor": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

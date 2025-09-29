@@ -1,5 +1,6 @@
 package br.com.core.operations.core.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Quotation implements Serializable {
-    private String currency;
-    private BigDecimal amount;
+    private String moeda;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private BigDecimal valor;
 }

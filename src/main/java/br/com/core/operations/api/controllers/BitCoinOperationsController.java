@@ -25,7 +25,7 @@ public class BitCoinOperationsController {
         return findBitCoinQuotationUseCase.getQuotation(currency);
     }
 
-    @GetMapping("/quotation")
+    @GetMapping("/quotations")
     public AllQuotations getQuotatios(){
         log.info("Nova requisição de EUR BRL e USD");
         return findBitCoinQuotationUseCase.getAll();
