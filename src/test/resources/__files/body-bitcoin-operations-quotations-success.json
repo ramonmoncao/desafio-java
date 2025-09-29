@@ -1,0 +1,18 @@
+{
+  "moedaBase": "bitcoin",
+  "data": "2025-09-29T14:27:58Z",
+  "cotacoes": [
+    {
+      "moeda": "USD",
+      "valor": "113982.01"
+    },
+    {
+      "moeda": "BRL",
+      "valor": "606315.91"
+    },
+    {
+      "moeda": "EUR",
+      "valor": "97156.46"
+    }
+  ]
+}
