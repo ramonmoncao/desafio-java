@@ -1,0 +1,13 @@
+{
+  "request": {
+    "urlPathPattern": "/bitcoin-operations/quotation/USD",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "body-bitcoin-operations-quotation-usd-success.json",
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    }
+  }
+}

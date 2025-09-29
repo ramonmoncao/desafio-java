@@ -4,7 +4,6 @@ import br.com.core.operations.api.templates.AllQuotationsResponseTemplate;
 import br.com.core.operations.api.templates.QuotationResponseTemplate;
 import br.com.core.operations.core.interfaces.usecase.FindBitCoinQuotationUseCase;
 import com.atlassian.oai.validator.mockmvc.OpenApiValidationMatchers;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@AutoConfigureWireMock(port = 8081)
 class BitCoinControllerContractTest {
 
     private final String openApiSwaggerFilePath = "openapi.json";
